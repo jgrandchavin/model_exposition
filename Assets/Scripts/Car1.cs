@@ -15,7 +15,6 @@ public class Car1 : Car
     {
         Car2 = GameObject.Find("Car2");
         basePosition = transform.position;
-        focusPosition = new Vector3(2, 0, 0);
         Setup();
     }
 

@@ -9,13 +9,13 @@ public class Car : MonoBehaviour
     // Public properties
 
     public Vector3 basePosition;
-    public Vector3 focusPosition;
 
     // Private properties
 
     private bool focus = false;
     private float rotationSpeed = 0.2f;
     private List<string> materialNames;
+    private Vector3 focusPosition;
 
     private GameObject returnButton;
 
@@ -23,6 +23,7 @@ public class Car : MonoBehaviour
 
     void Start() 
     {
+        focusPosition = new Vector3(2, 0, 0);
     }
 
     void Update()
@@ -57,7 +58,11 @@ public class Car : MonoBehaviour
 
     public void Setup() {
         returnButton = GameObject.Find("Button");
-        returnButton.GetComponent<Button>().onClick.AddListener(delegate() { UnFocus(); });
+        returnButton.GetComponent<Button>().onClick.AddListener(delegate() { 
+            if (focus) {
+                UnFocus();
+            }
+         });
         materialNames = new List<string>()
         {
             "Body_2",
