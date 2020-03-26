@@ -2,68 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Car2 : MonoBehaviour
+public class Car2 : Car
 {
+    // Private properties
 
-    GameObject Car1;
-    bool focus = false;
-    Vector3 basePosition;
-    Vector3 focusPosition;
+    private GameObject Car1;
 
+    // Lifecycle methods
 
-
-    // Start is called before the first frame update
     void Start()
     {
         Car1 = GameObject.Find("Car1");
         basePosition = transform.position;
         focusPosition = new Vector3(2, 0, 0);
+        Setup();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        CarRotation();
-    }
+    // Public methods
 
-
-    void OnMouseDown()
-    {
-        if (!focus)
-        {
-            FocusCar();
-        }
-        else
-        {
-            UnfocusCar();
-        }
-    }
-
-    private void FocusCar()
+    public override void Focus()
     {
         Car1.SetActive(false);
-        focus = true;
+        ShouldFocus(true);
     }
 
-    private void UnfocusCar()
+    public override void UnFocus()
     {
         Car1.SetActive(true);
-        focus = false;
+        ShouldFocus(false);
     }
 
-    private void CarRotation()
-    {
-        if (!focus)
-        {
-            transform.Rotate(Vector3.up * 50 * Time.deltaTime, Space.World);
-            transform.position = Vector3.MoveTowards(transform.position, basePosition, 10 * Time.deltaTime);
-        }
-        else
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-            transform.position = Vector3.MoveTowards(transform.position, focusPosition, 10 * Time.deltaTime);
-        }
-
-
-    }
 }
